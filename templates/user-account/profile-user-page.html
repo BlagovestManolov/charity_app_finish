@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+            <section style="min-height: 100vh;" id="profile-information">
+				<div class="overlay">
+					<div class="edit-profile-container">
+						<div class="profile-picture-section">
+                            {% if charityuserprofile.profile_picture %}
+							    <img src="{{ charityuserprofile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+                            {% else %}
+                                <p>No image</p>
+                            {% endif %}
+                            <p><strong>Username: </strong>{{ charityuserprofile.user.username }}</p>
+
+							{% if user.pk == charityuserprofile.user.pk %}
+                                <button class="edit-profile"><a href="{% url 'profile-user' request.user.pk%}">Edit Profile</a></button>
+                                <button class="edit-profile"><a href="{% url 'delete-user' request.user.pk%}">Delete Profile</a></button>
+                            {% endif %}
+						</div>
+
+
+						<div class="user-info-section">
+							<div class="input-group">
+								<p><strong>First Name: </strong>{{ charityuserprofile.first_name }}</p>
+							</div>
+							<div class="input-group">
+								<p><strong>Last Name: </strong>{{ charityuserprofile.last_name }}</p>
+							</div>
+							<div class="input-group">
+								<p><strong>Email: </strong>{{ charityuserprofile.user.email }}</p>
+							</div>
+							<div class="input-group">
+								<p><strong>Phone Number: </strong>{{ charityuserprofile.phone_number }}</p>
+							</div>
+                            <div class="input-group">
+                                <p><strong>Information: </strong>{{ charityuserprofile.information }}</p>
+                            </div>
+						</div>
+					</div>
+				</div>
+            </section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div style="min-height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center;" id="fh5co-services-section">
+        <div class="container">
+            <h3>Want to delete your comment?</h3>
+            <form action="{% url 'delete-comment' comment.pk %}" method="post">
+                <button style="background-color: #ff5722; color: white; border: none; border-radius: 10px; padding: 10px;" type="submit">Delete</button>
+                <button style="background-color: #ff5722; border: none; border-radius: 10px; padding: 10px;"><a style="color: white;" href="{% url 'blog-list' %}">Cansel</a></button>
+                {% csrf_token %}
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

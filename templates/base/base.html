@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html class="no-js">
+{% include 'base/partials/head.html' %}
+<body>
+    	<div id="fh5co-wrapper">
+		    <div id="fh5co-page">
+                {% include 'base/partials/navigation.html' %}
+                    {% block content %}
+                    {% endblock %}
+                {% include 'base/partials/footer.html' %}
+            </div>
+        </div>
+        {% include 'base/partials/scripts.html' %}
+</body>
+</html>

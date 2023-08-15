@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+            <section style="height: 130vh; min-height: 100vh;" id="register">
+                <div style="height: 130vh; min-height: 100vh;" class="overlay">
+                    <form action="{% url 'add-project' %}" method="post" enctype="multipart/form-data">
+                        <div class="register-container">
+                            <h1>Register</h1>
+                            
+                            <label for="project-name"><b>Project Name</b></label>
+                            {{ form.project_name.errors }}
+                            {{ form.project_name|placeholder:'Enter project name' }}
+                            
+                            <label for="project-description"><b>Project Description</b></label>
+                            {{ form.project_description.errors }}
+                            {{ form.project_description|placeholder:'Project description ...' }}
+        
+                            <label for="project-type"><b>Project Type</b></label>
+                            {{ form.project_type.errors }}
+                            {{ form.project_type }}
+
+                            {{ formset.management_form }}
+                            {% for form in formset %}
+                                {{ form.as_div }}
+                            {% endfor %}
+
+                            {% csrf_token %}
+                            <button type="submit">Register</button>
+                    </form>
+                </div>
+            </section>
+{% endblock %}

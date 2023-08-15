@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <section id="donate-one-information">
+        <div class="donate-information">
+            <h2>BECOME A VOLUNTEER</h2>
+
+            <p>In every society there are children who are deprived of parental care and face many difficulties and
+                challenges. These children need love, support and attention, which can be provided by volunteers. By
+                volunteering in programs and organizations that care for these children, you can make a real difference
+                in their lives and contribute to their better future.</p>
+
+            <p>First and foremost, volunteering provides an opportunity to create a meaningful connection with children
+                in need. Your presence and support can give them a sense of stability and security. When these children
+                see that there are people who love and care about them, it can change the way they see the world and
+                their future.</p>
+
+            <p>Second, as a volunteer you can provide educational and emotional support to children. Many of them have
+                experienced traumatic situations or been exposed to abuse. With the help of educational classes and
+                recreational activities, you can help them develop their skills, improve their academic achievements and
+                discover new interests. It is important to support them in the process of overcoming difficulties and to
+                inspire them to dream of a better future.</p>
+
+            <p>Third, volunteer work with children deprived of parental care can also be extremely charitable for the
+                volunteer himself. It gives you the opportunity to broaden your horizons, improve communication skills
+                and develop patience and understanding. Such an experience can also help you in your personal life,
+                encouraging you to be more compassionate and responsive to those around you.</p>
+
+            <p>There are many ways you can volunteer and help children without parental care. You can work with local
+                NGOs, care centers, orphanages or children's homes. Some programs focus on specific age groups or
+                specific needs of children, so you can choose the kind of volunteer activity that is closer to you
+                personally.</p>
+
+            <p>At the end of the day, when you volunteer and help children deprived of parental care, you are giving
+                something incredibly valuable - your time and dedication, which can make a real difference in the lives
+                of these children. Let's build a better future for them together and support them on their way to
+                happiness and success.</p>
+
+            {% if not user.is_authenticated %}
+                <span><a class="btn btn-primary btn-lg" href="{% url 'register-user' %}">Register</a></span>
+            {% endif %}
+        </div>
+        <div id="fh5co-services-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3>Our Volunteer Active Projects</h3>
+                        <p>Support our projects and become part of the positive change in our society! Our mission is to create a sustainable future for all children.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row text-center">
+                    {% for project in projects %}
+                        <div class="col-md-4 col-sm-4">
+                            <div class="services animate-box">
+                                <span><i class="icon-heart"></i></span>
+                                {% if user.is_authenticated %}
+                                    <h3><a href="{% url 'project-detail' project.pk%}">{{ project.project_name }}</a></h3>
+                                {% else %}
+                                    <h3>{{ project.project_name }}</h3>
+                                {% endif %}
+                                <p>{{ project.project_description|truncatewords:10 }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

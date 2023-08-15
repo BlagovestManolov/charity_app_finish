@@ -1,0 +1,227 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <section id="about">
+        <div class="fh5co-hero">
+            <div class="fh5co-overlay"></div>
+            <div class="fh5co-cover text-center" data-stellar-background-ratio="0.3"
+                 style="background-image: url({% static 'images/color-main.jpg' %});">
+                <div class="desc animate-box">
+                    <h2>We Are <strong>Non-profit</strong></h2>
+                    <span>We want to help children</span>
+                    {% if not request.user.is_authenticated %}
+                        <span><a class="btn btn-primary btn-lg" href="#">Donate Now</a></span>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <div id="fh5co-feature-product" class="fh5co-section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center heading-section">
+                        <h3>How we started.</h3>
+                        <p>Two years ago, a non-governmental project called "Childhood Love" began to unfold in Sofia,
+                            which aimed to help children without parents or at social risk. This was the story of a
+                            young woman who started an exciting enterprise - Elena.</p>
+                        <p>Elena was a social worker with a strong desire to help children who were experiencing
+                            difficulties in their lives. There were moments in her past that affected her in a special
+                            way, creating in her an understanding and compassion for those who needed love and
+                            support.</p>
+                        <p>Determined to make a difference in the lives of these children, Elena gathered a group of
+                            committed and willing volunteers with similar views and hearts full of desire to help.
+                            Together they became a team that set out to create a center for orphaned children where they
+                            could receive the support, education and love they needed.</p>
+                        <p>With the help of donors, local companies and public foundations, "Childhood Love" was able to
+                            open its doors to children who are abandoned or live in difficult family conditions. In the
+                            center they found love and care, they wanted to express themselves through creativity and
+                            sports, to receive education and support to have a chance for a better future.</p>
+                    </div>
+                </div>
+
+                <div class="row row-bottom-padded-md">
+                    <div class="col-md-12 text-center animate-box">
+                        <p><img src="{% static 'images/elena_three.jpg' %}" alt="Free HTML5 Bootstrap Template"
+                                class="img-responsive"></p>
+                    </div>
+                    <div class="col-md-6 text-center animate-box">
+                        <p><img src="{% static 'images/elena_one.jpg' %}" alt="Free HTML5 Bootstrap Template"
+                                class="img-responsive"></p>
+                    </div>
+                    <div class="col-md-6 text-center animate-box">
+                        <p><img src="{% static 'images/elena_two.jpg' %}" alt="Free HTML5 Bootstrap Template"
+                                class="img-responsive"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="feature-text">
+                            <h3>Love</h3>
+                            <p>Giving time, effort or material gifts carries something special - it brings love.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-text">
+                            <h3>Compassion</h3>
+                            <p>When we speak of giving and compassion, we advocate the generosity of the human soul and
+                                the heart that discovers the true meaning of giving. This is not just an act of
+                                generosity, but an expression of true humanity and connectedness.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-text">
+                            <h3>Charity</h3>
+                            <p>Philanthropy is the beautiful art of giving that has the power to change lives and make
+                                the world a better place. When we talk about donations and charity, we are dealing with
+                                the magic of hearts that turn small acts of kindness into a ray of hope for those in
+                                need.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div id="fh5co-portfolio">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 text-center heading-section animate-box">
+                        <h3>Glowing smiles after the charity</h3>
+                    </div>
+                </div>
+
+
+                <div class="row row-bottom-padded-md">
+                    <div class="col-md-12">
+                        <ul id="fh5co-portfolio-list">
+
+                            <li class="two-third animate-box" data-animate-effect="fadeIn"
+                                style="background-image: url({% static 'images/danation_one.jpg' %}); ">
+                                <a href="{% url 'give-love' %}" class="color-3">
+                                    <div class="case-studies-summary">
+                                        <span>Give Love</span>
+                                        <h2>Donation is caring</h2>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="one-third animate-box" data-animate-effect="fadeIn"
+                                style="background-image: url({% static 'images/donation_two.jpg' %}); ">
+                                <a href="{% url 'give-future' %}" class="color-4">
+                                    <div class="case-studies-summary">
+                                        <span>Give Future</span>
+                                        <h2>Donation is generosity</h2>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="one-third animate-box" data-animate-effect="fadeIn"
+                                style="background-image: url({% static 'images/donation_three.jpg' %}); ">
+                                <a href="{% url 'give-education' %}" class="color-5">
+                                    <div class="case-studies-summary">
+                                        <span>Give Education</span>
+                                        <h2>Donation is knowledge</h2>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="two-third animate-box" data-animate-effect="fadeIn"
+                                style="background-image: url({% static 'images/donation_four.jpg' %}); ">
+                                <a href="{% url 'give-happiness' %}" class="color-6">
+                                    <div class="case-studies-summary">
+                                        <span>Give Happiness</span>
+                                        <h2>Donation is a virtue</h2>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="fh5co-content-section" class="fh5co-section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3>Leadership</h3>
+                        <p>Meet our team. Learn more about the people who make this app exist.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    {% for staff in staffs %}
+                        {% if staff.is_superuser %}
+                            <div class="col-md-4">
+                                <div class="fh5co-team text-center animate-box">
+                                    <figure>
+                                        <img style="object-fit: cover;" src="{% static 'images/elena_one.jpg' %}" alt="user">
+                                    </figure>
+
+                                    <div>
+                                        <h3>Elena Castillo</h3>
+                                        <p><span>Founder</span></p>
+                                        <p>Elena was a social worker with a strong desire to help children who were experiencing difficulties in their lives. There were moments in her past that affected her in a special way, creating in her an understanding and compassion for those who needed love and support.</p>
+                                    </div>
+
+                                    <p class="fh5co-social-icons">
+                                        <a href="#"><i class="icon-twitter2"></i></a>
+                                        <a href="#"><i class="icon-linkedin2"></i></a>
+                                        <a href="#"><i class="icon-facebook3"></i></a>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if staff.charityuserprofile.first_name == 'Blagovest' %}
+                            <div class="col-md-4">
+                                <div class="fh5co-team text-center animate-box">
+                                    <figure>
+                                        <img style="object-fit: cover;" src="{{ staff.charityuserprofile.profile_picture.url }}" alt="user">
+                                    </figure>
+
+                                    <div>
+                                        <h3>{{ staff.charityuserprofile.first_name }}</h3>
+                                        <p><span>Administrator</span></p>
+                                        <p>{{ staff.charityuserprofile.information }}</p>
+                                    </div>
+
+                                    <p class="fh5co-social-icons">
+                                        <a href="#"><i class="icon-twitter2"></i></a>
+                                        <a href="#"><i class="icon-linkedin2"></i></a>
+                                        <a href="#"><i class="icon-facebook3"></i></a>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if staff.charityuserprofile.first_name == 'Lada' %}
+                        <div class="col-md-4">
+                            <div class="fh5co-team text-center animate-box">
+                                <figure>
+                                    <img style="object-fit: cover;" src="{{ staff.charityuserprofile.profile_picture.url }}" alt="user">
+                                </figure>
+
+                                <div>
+                                    <h3>{{ staff.charityuserprofile.first_name }}</h3>
+                                    <p><span>Customer Support Operator</span></p>
+                                    <p>{{ staff.charityuserprofile.information }}</p>
+                                </div>
+
+                                <p class="fh5co-social-icons">
+                                    <a href="#"><i class="icon-twitter2"></i></a>
+                                    <a href="#"><i class="icon-linkedin2"></i></a>
+                                    <a href="#"><i class="icon-facebook3"></i></a>
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

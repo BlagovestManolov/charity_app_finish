@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block content %}
+            <section id="get-involved">
+                <div class="overlay">
+                    <div class="register-container">
+                        <div class="register-user-b">
+                            <p>Need help or want to help children in need?</p>
+                            <a class="btn btn-primary btn-lg" href="{% url 'register-user' %}">Register</a>
+                            <a class="btn btn-primary btn-lg" href="{% url 'login-user' %}" style="margin-top: 30px">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+    <section id="messages">
+        <div id="fh5co-services-section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+							<h3>Messages</h3>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row text-center">
+                        {% for message in messages %}
+                            <div class="col-md-4 col-sm-4">
+							    <div class="services animate-box">
+								    <span>{{ message.name }}</span>
+								    <h3>{{ message.email }}</h3>
+								    <p>{{ message.message }}</p>
+							    </div>
+						    </div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+    </section>
+{% endblock %}

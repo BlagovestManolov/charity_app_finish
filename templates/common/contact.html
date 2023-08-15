@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+    <div class="fh5co-hero">
+        <div class="fh5co-overlay"></div>
+        <div class="fh5co-cover text-center" data-stellar-background-ratio="0.1"
+             style="background-image: url({% static '/images/contect_main.jpg' %});">
+            <div class="desc animate-box">
+                <h2><strong>Contact</strong> Us</h2>
+                {% if not request.user.is_authenticated %}
+                    <span><a class="btn btn-primary btn-lg" href="#">Donate Now</a></span>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <div id="fh5co-contact" class="animate-box">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="section-title">Our Address</h3>
+                        <p>Our address is not so important, but if you still want to visit us in order to get to know
+                            the work of the organization itself, welcome!</p>
+                        <ul class="contact-info">
+                            <li><i class="icon-location-pin"></i>ul. Zelena Krusha, 1434 Simeonovo, Sofia</li>
+                            <li><i class="icon-phone2"></i>+ 359 0 12 123 3</li>
+                            <li><i class="icon-mail"></i><a href="#">childhood_love@gmail.com</a></li>
+                            <li><i class="icon-globe2"></i><a href="#">www.childhoodlove.com</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <form method="post">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.name.errors }}
+                                        {{ form.name|placeholder:'Name'|form_field_class:'form-control' }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.email.errors }}
+                                        {{ form.email|placeholder:'Email'|form_field_class:'form-control' }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form.message.errors }}
+                                        {{ form.message|placeholder:"Message"|form_field_class:'form-control' }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary" type="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- END fh5co-contact -->
+    <div id="map" class="fh5co-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5872.5006312677515!2d23.333291899544797!3d42.6136469846819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8144de31365f%3A0x7a147decfe4eb8b3!2sTrendySellers!5e0!3m2!1sen!2sbg!4v1690037390284!5m2!1sen!2sbg"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <!-- END map -->
+{% endblock %}

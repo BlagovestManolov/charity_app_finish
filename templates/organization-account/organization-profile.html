@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <section id="profile-information">
+        <div class="overlay">
+            <div class="edit-profile-container">
+
+                <div class="profile-picture-section">
+                    <p><strong>Organization Name: </strong>{{ organizationuserprofile.name }}</p>
+                    {% if user.pk == organizationuserprofile.user_id %}
+                        <button class="edit-profile"><a href="{% url 'organization-user' request.user.pk %}">Edit</a>
+                        </button>
+                        <button class="create-project"><a href="{% url 'add-project' %}">Create Project</a></button>
+                        <button class="create-project"><a href="{% url 'add-blog' %}">Create Blog</a></button>
+
+                        <div class="project-title">
+                            <p><strong>Active Projects:</strong></p>
+                        </div>
+                        <div class="active-projects">
+                            {% for project in project_organization_active %}
+                                <div class="project-organization">
+                                    <p><a href="#" style="color: gray;">{{ project.project_name }}</a></p>
+
+                                    <button><a href="{% url 'project-detail' pk=project.pk %}">Information</a></button>
+                                    <button><a href="{% url 'finish-project' pk=project.pk %}">Finish</a></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="project-title">
+                            <p><strong>Finished Projects:</strong></p>
+                        </div>
+                        {% for project in project_organization_no_active %}
+                            <div class="project-organization">
+                                {{ project.project_name }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="user-info-section">
+                    <div class="input-group">
+                        <p><strong>Email: </strong>{{ organizationuserprofile.user.email }}</p>
+                    </div>
+                    <div class="input-group">
+                        <p><strong>Phone Number: </strong>{{ organizationuserprofile.phone_number }}</p>
+                    </div>
+                    <div class="input-group">
+                        <p><strong>Information: </strong>{{ organizationuserprofile.information }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
