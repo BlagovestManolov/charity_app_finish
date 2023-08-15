@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+            <section style="height: 130vh; min-height: 100vh;" id="update-user">
+                <div style="height: 130vh; min-height: 100vh;" class="overlay">
+                    <form action="{% url 'profile-user' request.user.pk%}" method="post" enctype="multipart/form-data">
+                        <div class="register-container">
+                            <h1>Personal Information</h1>
+                            
+                            <label for="first_name"><b>First Name</b></label>
+                            {{ form.first_name.errors }}
+                            {{ form.first_name|placeholder:'Enter your first name' }}
+                            
+                            <label for="last_name"><b>Last Name</b></label>
+                            {{ form.last_name.errors }}
+                            {{ form.last_name|placeholder:'Enter your last name' }}
+
+                        
+                            <label for="phone"><b>Phone</b></label>
+                            {{ form.phone_number.errors }}
+                            {{ form.phone_number|placeholder:'Enter your phone number' }}
+
+                            <label for="information">Information</label>
+                            {{ form.information.errors }}
+                            {{ form.information }}
+
+                            {% csrf_token %}
+                            <label for="peofile-picture"><b>Profile Picture</b></label>
+                            {{ form.profile_picture }}
+                            <button type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+    <section id="register">
+        <div class="overlay">
+            <form action="{% url 'register-user' %}" method="post">
+                <div class="register-container">
+                    <h1>Register</h1>
+
+                    <label for="username"><b>Username</b></label>
+                    {{ form.username.errors }}
+                    {{ form.username|placeholder:'Enter Username' }}
+
+                    <label for="email">Email</label>
+                    {{ form.email.errors }}
+                    {{ form.email|placeholder:'Enter Email' }}
+
+                    <label for="user-type">User Type</label>
+                    {{ form.user_type }}
+
+
+                    <label for="password"><b>Passowrd</b></label>
+                    {{ form.password1.errors }}
+                    {{ form.password1|placeholder:'Enter Password'}}
+
+                    <label for="pwd-repeat"><b>Repeat Password</b></label>
+                    {{ form.password2.errors }}
+                    {{ form.password2|placeholder:'Repeat Password' }}
+
+                    <button type="submit">Register</button>
+                    {% csrf_token %}
+                    <p class="redirect-login-container">Already have an account? <a href="{% url 'login-user' %}">Log in</a>.</p>
+
+            </form>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+            <section id="login">
+                <div class="overlay">
+                    <form action="{% url 'login-user' %}" method="post">
+                        <div class="register-container">
+                            <h1>Log In</h1>
+                            
+                            <label for="username"><b>Username</b></label>
+                            {{ form.username.errors }}
+                            {{ form.username|placeholder:'username' }}
+                            
+                            <label for="password"><b>Password</b></label>
+                            {{ form.password.errors }}
+                           {{ form.password|placeholder:'password' }}
+                        
+                            <button type="submit">Log In</button>
+                            {% csrf_token %}
+							<p class="redirect-login-container">Already have an account? <a href="{% url 'register-user' %}">Register</a>.</p>
+                        <!-- </div>
+                        <div class="redirect-login-container">
+                            <p>Already have an account? <a href="#">Log in</a>.</p>
+                        </div> -->
+                    </form>
+                </div>
+            </section>
+{% endblock %}

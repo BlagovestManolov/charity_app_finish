@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters_blog %}
+{% block content %}
+    <div class="fh5co-hero">
+        <div class="fh5co-overlay"></div>
+        <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5"
+             style="background-image: url({% static '/images/blog.jpg' %});">
+            <div class="desc animate-box">
+                <h2>Our <strong>Blog &amp; News</strong></h2>
+                {% if not request.user.is_authenticated %}
+                    <span><a class="btn btn-primary btn-lg" href="{% url 'get-involved' %}">Donate Now</a></span>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <div id="fh5co-blog-section" class="fh5co-section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                    <h3>Read. Learn. Help</h3>
+                    <p>Learn more about our campaigns.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% for blog in blogs %}
+                <div class="row row-bottom-padded-md">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="fh5co-blog animate-box">
+{#                        <img class="img-responsive" src="{% static 'images/blog_cover.jpg' %}" alt="image">#}
+                            {% for image in blog.project.images.all|break_loop:1 %}
+                                <img style="height: 250px; object-fit: cover;" class="img-responsive" src="{{ image.image.url }}" alt="image">
+                            {% empty %}
+                                <img style="height: 250px; object-fit: cover;" class="img-responsive" src="{% static 'images/blog.jpg' %}" alt="image">
+                            {% endfor %}
+
+                        <div class="blog-text">
+                            <div class="prod-title">
+                                {% if request.user.is_authenticated %}
+                                    <h3><a href="{% url 'project-detail' blog.project_id %}">{{ blog.blog_title }}</a>
+                                    </h3>
+                                {% else %}
+                                    <h3><a href="{% url 'get-involved' %}">{{ blog.blog_title }}</a></h3>
+                                {% endif %}
+                                <h5><strong style="color: #FF5722FF;">Project:</strong> {{ blog.project.project_name }}
+                                </h5>
+                                <span class="posted_by">{{ blog.date_of_creation }}</span>
+                                <span class="comment"><a href="{% url 'read-comment' blog_id=blog.pk%}">{{ blog.blogcomments_set.count }}<i class="icon-bubble2"></i></a></span>
+                                <p>{{ blog.blog_information }}</p>
+                                {% if request.user.is_authenticated %}
+                                    <p><a href="{% url 'add-comment' blog_id=blog.pk%}">Write a Comment</a></p>
+                                {% else %}
+                                    <p><a href="{% url 'get-involved' %}">Write a Comment</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; font-size: 3rem;">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+            {% endif %}
+            <strong style="font-size: 2rem">{{ page_obj.number }} / {{ paginator.num_pages }} </strong>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block content %}
+            <section id="update-user">
+                <div class="overlay">
+                    <form action="{% url 'organization-user' request.user.pk%}" method="post">
+                        <div class="register-container">
+                            <h1>Organization Information</h1>
+        
+                            <label for="organization-name"><b>Organization Name</b></label>
+                            {{ form.name.errors }}
+                            {{ form.name|placeholder:'Enter organization name' }}
+                        
+                            <label for="phone"><b>Phone</b></label>
+                            {{ form.phone_number.errors }}
+                            {{ form.phone_number|placeholder:'Enter your phone number' }}
+
+                            <label for="information">Information</label>
+                            {{ form.information.errors }}
+                            {{ form.information|placeholder:'Enter information about your organization' }}
+
+                            <label for="profile-picture">Profile Picture</label>
+                            {{ form.profile_picture.errors }}
+                            {{ form.profile_picture }}
+
+                            {% csrf_token %}
+                            <button type="submit">Update</button>
+                        </div>
+							<!-- <p class="redirect-login-container">Already have an account? <a href="#">Log in</a>.</p> -->
+                        <!-- </div>
+                        <div class="redirect-login-container">
+                            <p>Already have an account? <a href="#">Log in</a>.</p>
+                        </div> -->
+                    </form>
+                </div>
+            </section>
+{% endblock %}

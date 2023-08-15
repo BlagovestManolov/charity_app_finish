@@ -1,0 +1,94 @@
+<header id="fh5co-header-section" class="sticky-banner">
+    <div class="container">
+        <div class="nav-header">
+            <a href="{% url 'index' %}" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+            <h1 id="fh5co-logo"><a href="{% url 'index' %}">Childhood love</a></h1>
+            <!-- START #fh5co-menu-wrap -->
+            <nav id="fh5co-menu-wrap" role="navigation">
+                <ul class="sf-menu" id="fh5co-primary-menu">
+                    {% if request.resolver_match.url_name == 'index' %}
+                        <li class="active">
+                            <a href="{% url 'index' %}">Home</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'index' %}">Home</a>
+                        </li>
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                        {% if request.resolver_match.url_name == 'get-involved' %}
+                            <li class="active">
+                                <a href="{% url 'get-involved' %}" class="fh5co-sub-ddown">Get Involved</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'get-involved' %}" class="fh5co-sub-ddown">Get Involved</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'projects-list' %}
+                        <li class="active">
+                            <a href="{% url 'projects-list' %}" class="fh5co-sub-ddown">Projects</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'projects-list' %}" class="fh5co-sub-ddown">Projects</a>
+                        </li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'about' %}
+                        <li class="active"><a href="{% url 'about' %}">About</a></li>
+                    {% else %}
+                        <li><a href="{% url 'about' %}">About</a></li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'blog-list' %}
+                        <li class="active"><a href="{% url 'blog-list' %}">Blog</a></li>
+                    {% else %}
+                        <li><a href="{% url 'blog-list' %}">Blog</a></li>
+                    {% endif %}
+                    {% if request.resolver_match.url_name == 'contact' %}
+                        <li class="active"><a href="{% url 'contact' %}">Contact</a></li>
+                    {% else %}
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser %}
+                            <li><a href="{% url 'messages-superuser' %}">Messages</a></li>
+                        {% else %}
+                            {% if request.user.user_type == 'U' %}
+                                {% if user.charityuserprofile.first_name %}
+                                    {% if request.resolver_match.url_name == 'profile-finish-user' %}
+                                        <li class="active"><a href="{% url 'profile-finish-user' request.user.pk %}">Profile</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'profile-finish-user' request.user.pk %}">Profile</a></li>
+                                    {% endif %}
+                                {% else %}
+                                     {% if request.resolver_match.url_name == 'profile-user' %}
+                                        <li><a href="{% url 'profile-user' request.user.pk %}">Profile</a></li>
+                                     {% else %}
+                                         <li><a href="{% url 'profile-user' request.user.pk %}">Profile</a></li>
+                                     {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if user.organizationuserprofile.name %}
+                                    {% if request.resolver_match.url_name == 'organization-finish-user' %}
+                                        <li class="active"><a href="{% url 'organization-finish-user' request.user.pk %}">Organization</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'organization-finish-user' request.user.pk %}">Organization</a></li>
+                                    {% endif %}
+                                {% else %}
+                                    {% if request.resolver_match.url_name == 'organization-user' %}
+                                        <li class="active"><a href="{% url 'organization-user' request.user.pk %}">Organization</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'organization-user' request.user.pk %}">Organization</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        <li><a href="{% url 'logout-user' %}">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

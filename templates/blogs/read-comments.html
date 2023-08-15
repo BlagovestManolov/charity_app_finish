@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div id="fh5co-services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                    <h3><strong style="color: #FF5722FF;">Project:</strong> {{ blog_information.project.project_name }}
+                    </h3>
+                    <hr>
+                    <p style=>
+                        <strong>Organization:</strong> {{ blog_information.project.organization.organizationuserprofile.name }}
+                    </p>
+                    <p><strong>Information:</strong> {{ blog_information.blog_information }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row text-center">
+                <div id="individual-project-information">
+                    <div class="row row-bottom-padded-md">
+                        <h4 style="color: #FF5722FF;">Comments:</h4>
+                        {% for comment in comments %}
+                            <p><strong class="color">{{ comment.user.username }}</strong>: {{ comment.content }}
+                                {% if user.is_authenticated %}
+                                    {% if user == comment.user %}
+                                        <button style="padding: 0px 10px; margin: 0px;"><a style="color: white;"
+                                                                                           href="{% url 'update-comment' comment.pk %}">Change</a>
+                                        </button>
+                                        <button style="padding: 0px 10px; margin: 0px;"><a style="color: white;"
+                                                                                           href="{% url 'delete-comment' comment.pk %}">Delete</a>
+                                        </button>
+                                    {% endif %}
+                                {% endif %}</p>
+
+                        {% empty %}
+                            <li>No comments yet.</li>
+                        {% endfor %}
+                        <button><a href="{% url 'blog-list' %}" style="color: white">Back</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

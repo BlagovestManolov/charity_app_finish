@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% block content %}
+    <section id="comments-container">
+        <div class="containers">
+            <h2>Comments for <strong class="color">{{ blog_information.project.project_name }}</strong></h2>
+            <p>Organization: <strong>{{ blog_information.project.organization.organizationuserprofile.name }}</strong>
+            </p>
+            <p>Description: {{ blog_information.blog_information }}</p>
+            <ul class="comments-list-container">
+                {% for comment in comments %}
+                    <li><strong class="color">{{ comment.user.username }}</strong>: {{ comment.content }}</li>
+                {% empty %}
+                    <li>No comments yet.</li>
+                {% endfor %}
+            </ul>
+
+            <button><a href="{% url 'blog-list' %}">Back</a></button>
+        </div>
+    </section>
+{% endblock %}

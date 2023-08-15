@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div id="fh5co-services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                    <h3>{{ project.project_name }}</h3>
+                    <hr>
+                    <p style="color: #ff5722; font-size: 3rem;"><a href="{% url 'organization-finish-user' project.organization_id%}">{{ project.organization.organizationuserprofile.name }}</a></p>
+{#                    <p style="color: #ff5722; font-size: 3rem;"><a href="">{{ project.organization.organizationuserprofile.name }}</a></p>#}
+                    <p>{{ project.project_description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row text-center">
+                <div id="individual-project-information">
+                    <div class="row row-bottom-padded-md">
+                        {% if user.pk == project.organization_id %}
+                            {% if project.volunteers.all %}
+                                <div style="margin-bottom: 50px">
+                                    <h3>Volunteers:</h3>
+                                    {% for volunteer in project.volunteers.all %}
+                                        {% if volunteer.user_type == 'U' %}
+                                            <p><a href="{% url 'profile-finish-user' volunteer.id %}">{{ volunteer.username }}</a></p>
+                                        {% else %}
+                                            <p><a href="{% url 'organization-finish-user' volunteer.id%}">{{ volunteer.username }}</a></p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        {% for image in project.images.all %}
+                            <div class="col-md-12 text-center animate-box">
+                                <p><img src="{{ image.image.url }}" alt="Free HTML5 Bootstrap Template"
+                                        class="img-responsive"></p>
+                            </div>
+                        {% endfor %}
+                        {% if user.pk != project.organization_id %}
+                            {% if user.is_authenticated %}
+                                {% if user in project.volunteers.all %}
+                                    <p>You are already a member of this project.</p>
+                                {% else %}
+                                    <form action="{% url 'project-join' project.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="join-project-button" type="submit">Join</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

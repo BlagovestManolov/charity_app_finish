@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <section id="donate-one-information">
+        <div class="donate-information">
+            <h2>DONATION</h2>
+
+            <p>In today's fast-changing world, where financial hardship can often put children at a disadvantage,
+                donating financial aid to children in need is of incomparable importance. This not only provides
+                concrete means for their daily lives, but also fosters hope, respect and belief in a better future.</p>
+
+            <p>Children are considered the future of society, but unfortunately, not all have equal access to
+                opportunities and resources. Many find themselves in vulnerable situations due to social, economic or
+                health circumstances beyond their control. In these situations, the charitable gestures of people and
+                organizations that are willing to help become the light of hope.</p>
+
+            <p>Financial assistance can be expressed in various ways - from providing food, clothing and basic material
+                goods, to providing educational opportunities and health care. Donating funds not only solves the
+                immediate needs of children, but also enriches them with the sense that the world is full of kindness
+                and compassion.</p>
+
+            <p>One of the key benefits of financial aid is that it not only takes care of children's physical needs, but
+                also contributes to their psychological well-being. Feeling supported and understood can make all the
+                difference to a child's self-esteem and capabilities. This can inspire them to overcome adversity and
+                follow their dreams.</p>
+
+            <p>Also, donating financial aid to children in need has the potential to create a chain reaction of good.
+                When children see that there are people who care about them, they themselves become more willing to help
+                others as they get older. This creates a culture of solidarity and support that continues to grow and
+                develop.</p>
+
+            <p>In conclusion, donating financial aid to children in need is an act of humanity and compassion that has a
+                profound and long-lasting positive effect. Not only does it change the lives of children and provide
+                them with better opportunities, but it also changes society as a whole, making it a more just and
+                benevolent place for all.</p>
+
+            {% if not user.is_authenticated %}
+                <span><a class="btn btn-primary btn-lg" href="{% url 'register-user' %}">Register</a></span>
+            {% endif %}
+        </div>
+        <div id="fh5co-services-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3>Our Donation Active Projects</h3>
+                        <p>Support our projects and become part of the positive change in our society! Our mission is to create a sustainable future for all children.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row text-center">
+                    {% for project in projects %}
+                        <div class="col-md-4 col-sm-4">
+                            <div class="services animate-box">
+                                <span><i class="icon-heart"></i></span>
+                                {% if user.is_authenticated %}
+                                    <h3><a href="{% url 'project-detail' project.pk %}">{{ project.project_name }}</a>
+                                    </h3>
+                                {% else %}
+                                    <h3>{{ project.project_name }}</h3>
+                                {% endif %}
+                                <p>{{ project.project_description|truncatewords:10 }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

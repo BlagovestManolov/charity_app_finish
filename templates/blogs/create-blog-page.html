@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% block content %}
+            <section id="register">
+                <div class="overlay">
+                    <form action="{% url 'add-blog' %}" method="post">
+                        <div class="register-container">
+                            <h1>Create Blog</h1>
+                            
+                            <label for="blog-name"><b>Title</b></label>
+                            {{ form.blog_title.errors }}
+                            {{ form.blog_title }}
+                            
+                            <label for="blog-description"><b>Description</b></label>
+                            {{ form.blog_information.errors }}
+                            {{ form.blog_information }}
+        
+                            <label for="projects"><b>Choose Project</b></label>
+                            {{ form.project }}
+
+                            {% csrf_token %}
+                            <button type="submit">Create</button>
+                    </form>
+                </div>
+            </section>
+{% endblock %}
