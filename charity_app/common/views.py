@@ -1,10 +1,7 @@
-import random
-
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import TemplateView, FormView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView
 from charity_app.accounts.models import CharityUserProfile
 from charity_app.blogs.models import Blogs
 from charity_app.common.forms import ContactUsForm

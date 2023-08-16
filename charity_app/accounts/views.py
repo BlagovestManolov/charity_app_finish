@@ -1,7 +1,9 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, RedirectView
 from charity_app.accounts.forms import RegisterUserForm, ProfileUserForm, OrganizationUserForm
 from charity_app.accounts.mixins import GetInformationFromModelMixin, GetCharityUserMixin, AddToContextMixin
 from charity_app.accounts.models import CharityUserProfile, OrganizationUserProfile, CharityUser
@@ -17,6 +19,24 @@ class RegisterUserView(CreateView):
 
 class LoginUserView(LoginView):
     template_name = 'user-account/login-user-page.html'
+
+    def form_valid(self, form):
+        user = form.get_user()
+        login(self.request, user)
+
+        if user.first_login:
+            user.first_login = False
+            user.save()
+
+            if user.user_type == 'U':
+                return redirect('profile-user', user.pk)
+            else:
+                return redirect('organization-user', user.pk)
+        else:
+            if user.user_type == 'U':
+                return redirect('profile-finish-user', user.pk)
+            else:
+                return redirect('organization-finish-user', user.pk)
 
 
 class LogoutUserView(LogoutView):

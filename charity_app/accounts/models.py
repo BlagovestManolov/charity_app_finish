@@ -29,6 +29,10 @@ class CharityUser(AbstractUser):
         default=UserType.User.value,
     )
 
+    first_login = models.BooleanField(
+        default=True,
+    )
+
     date_joined = models.DateField(
         auto_now_add=True,
     )
