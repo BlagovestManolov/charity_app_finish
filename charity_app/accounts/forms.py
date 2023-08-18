@@ -9,8 +9,8 @@ UserModel = get_user_model()
 
 class RegisterUserForm(UserCreationForm):
     """
-        Selecting certain fields to
-        display when registering a new user.
+    Selecting certain fields to
+    display when registering a new user.
     """
     class Meta:
         model = UserModel

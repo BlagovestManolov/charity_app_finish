@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Permission
 
 from charity_app.accounts.models import CharityUser, CharityUserProfile, OrganizationUserProfile
 
@@ -22,3 +23,5 @@ class CharityUserProfileAdmin(admin.ModelAdmin):
 class OrganizationUserProfileAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'name', 'phone_number')
     ordering = ('user_id',)
+
+

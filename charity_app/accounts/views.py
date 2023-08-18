@@ -1,9 +1,11 @@
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView, RedirectView
+
+from charity_app import settings
 from charity_app.accounts.forms import RegisterUserForm, ProfileUserForm, OrganizationUserForm
 from charity_app.accounts.mixins import GetInformationFromModelMixin, GetCharityUserMixin, AddToContextMixin
 from charity_app.accounts.models import CharityUserProfile, OrganizationUserProfile, CharityUser
@@ -18,9 +20,21 @@ class RegisterUserView(CreateView):
 
 
 class LoginUserView(LoginView):
+    """
+    Customized login view for handling user authentication and redirection.
+
+    This view extends Django's built-in LoginView to handle user authentication.
+    Upon successful login, the user is redirected based on their first_login status
+    and user_type.
+    """
     template_name = 'user-account/login-user-page.html'
 
     def form_valid(self, form):
+        """
+            Handles the logic after a valid form submission.
+        Retrieves the authenticated user and logs them in. Depending on the user's
+        first_login and user_type, redirects are set to appropriate views.
+        """
         user = form.get_user()
         login(self.request, user)
 
@@ -43,7 +57,7 @@ class LogoutUserView(LogoutView):
     pass
 
 
-class ProfileUserView(UpdateView):
+class ProfileUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'user-account/update-information-user-page.html'
     model = CharityUserProfile
     form_class = ProfileUserForm
@@ -56,8 +70,14 @@ class ProfileUserView(UpdateView):
         user_pk = self.object.user.pk
         return reverse('profile-finish-user', kwargs={'pk': user_pk})
 
+    def test_func(self):
+        """
+        Ensure that only the authenticated user can update their own profile
+        """
+        return self.request.user == self.get_object().user
 
-class OrganizationUserView(UpdateView):
+
+class OrganizationUserView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'organization-account/organization-profile-update.html'
     model = OrganizationUserProfile
     form_class = OrganizationUserForm
@@ -70,12 +90,22 @@ class OrganizationUserView(UpdateView):
         user_pk = self.object.user.pk
         return reverse('organization-finish-user', kwargs={'pk': user_pk})
 
+    def test_func(self):
+        """
+        Ensure that only the authenticated user can update their own organization profile
+        """
+        return self.request.user == self.get_object().user
+
 
 class ProfileView(GetCharityUserMixin, GetInformationFromModelMixin, AddToContextMixin, DetailView):
     template_name = 'user-account/profile-user-page.html'
     model = CharityUserProfile
 
     def get_context_data(self, **kwargs):
+        """
+        Extends Django's DetailView to display detailed information about a user's
+        profile. It utilizes mixins to fetch and process the necessary data from the model.
+        """
         super().get_context_data(**kwargs)
         charity_user_profile = self._get_objects_from_model(CharityUserProfile, user=self._get_user()).first()
 
@@ -99,6 +129,11 @@ class OrganizationView(GetInformationFromModelMixin, GetCharityUserMixin, AddToC
     model = OrganizationUserProfile
 
     def get_context_data(self, **kwargs):
+        """
+        This view extends Django's DetailView to display detailed information about an organization's
+        profile. It utilizes mixins to fetch and process the necessary data from the model and
+        provide additional context for rendering, including active and inactive projects.
+        """
         organization_user_profile = self._get_objects_from_model(OrganizationUserProfile, user=self._get_user()).first()
         active_projects = self._get_objects_from_model(
             Project,
